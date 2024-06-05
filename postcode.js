@@ -17,23 +17,95 @@
 // Slovakian Postcodes
 // Consists of 5 numbers, where the first 3 are separated by a space from the last 2 numbers. Example: 123 45
 
-function whichPostcode(postcode) {
-  let splitInTwo = postcode.split(" ");
-  let arr = [];
-  let arr2 = [];
-  const arrValue = arr.push(splitInTwo[0]);
-  const arrTwoValue = arr2.push(splitInTwo[1]);
-  //   if (postcode) {
-  //     for (let i = 0; i < splitInTwo.length; i++) {
-  //       const getIndex = (splitInTwo[i] = splitInTwo[0]);
-  //       const getIndexTwo = (splitInTwo[i] = splitInTwo[1]);
-  //       arr.push(getIndex);
-  //       arr2.push(getIndexTwo);
-  //       return arr;
-  //     }
-  //   }
-
-  return arrValue;
+function isLetter(char) {
+  return (char >= "A" && char <= `Z`) || (char >= "a" && char <= "z");
 }
 
-console.log(whichPostcode("WS5 9DH")); // -> Returns "GB"
+function isDigit(char) {
+  return char >= "0" && char <= "9";
+}
+
+function isValidBritishPostcode(parts) {
+  if (parts.length !== 2) {
+    return false;
+  }
+
+  let firstPart = parts[0];
+  let secondPart = parts[1];
+
+  // Validate the first part (1 or 2 letters followed by 1 or 2 digits)
+  if (firstPart.length < 2 || firstPart.length > 4) {
+    return false;
+  }
+
+  let i = 0;
+  while (i < firstPart.length && isLetter(firstPart[i])) {
+    i++;
+  }
+
+  if (i === 0 || i > 2) {
+    return false;
+  }
+
+  let digitCount = 0;
+  while (i < firstPart.length && isDigit(firstPart[i])) {
+    i++;
+    digitCount++;
+  }
+
+  if (digitCount === 0 || digitCount > 2 || i !== firstPart.length) {
+    return false;
+  }
+
+  // Validate the second part (1 digit followed by 2 letters)
+  if (secondPart.length !== 3) {
+    return false;
+  }
+
+  if (!isDigit(secondPart[0])) {
+    return false;
+  }
+
+  if (!isLetter(secondPart[1]) || !isLetter(secondPart[2])) {
+    return false;
+  }
+
+  return true;
+}
+
+function isValidSlovakianPostcode(parts) {
+  if (parts.length !== 2) {
+    return false;
+  }
+
+  let firstPart = parts[0];
+  let secondPart = parts[1];
+
+  if (firstPart.length !== 3 || secondPart.length !== 2) {
+    return false;
+  }
+
+  if (
+    !firstPart.split("").every(isDigit) ||
+    !secondPart.split("").every(isDigit)
+  ) {
+    return false;
+  }
+  return true;
+}
+
+function whichPostcode(postcode) {
+  postcode = postcode.trim();
+
+  let partsOfPostcode = postcode.split(" ");
+
+  if (isValidBritishPostcode(partsOfPostcode)) {
+    return "GB";
+  }
+
+  if (isValidSlovakianPostcode(partsOfPostcode)) {
+    return "SK";
+  }
+
+  return "Not valid";
+}
