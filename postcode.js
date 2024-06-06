@@ -109,3 +109,11 @@ function whichPostcode(postcode) {
 
   return "Not valid";
 }
+
+//short run
+function whichPostcode(s) {
+  s = s.trim();
+  if (/^[a-z]{1,2}\d\d? \d[a-z]{2}$/i.test(s)) return "GB";
+  if (/^\d\d\d \d\d$/i.test(s)) return "SK";
+  return "Not valid";
+}
