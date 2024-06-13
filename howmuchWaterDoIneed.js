@@ -31,9 +31,28 @@ function howMuchWater(water, load, clothes) {
 //  step three ->
 
 function howMuchWater2(water, load, clothes) {
-  let calculateWater = (water * 11.1) ^ (clothes - load);
-  clothes = 10;
-  console.log(calculateWater);
+  let calculateWater = (water * 1.1) ^ (clothes - load);
   return calculateWater;
 }
-console.log("function 2", howMuchWater2(10, 11, 20));
+
+function howMuchWater(water, load, clothes) {
+  if (clothes < load) {
+    return "Not enough clothes";
+  }
+  if (clothes > 2 * load) {
+    return "Too much clothes";
+  }
+  console.log(clothes, load);
+  let extraClothes = clothes - load;
+  console.log(extraClothes);
+  let waterNeeded = water * Math.pow(1.1, extraClothes);
+  console.log(waterNeeded, "water needed");
+  waterNeeded = Math.round(waterNeeded * 100) / 100;
+  console.log(waterNeeded, "water need");
+
+  return waterNeeded;
+}
+console.log(howMuchWater(5, 10, 14));
+//console.log("TOO MUCH", howMuchWater(10, 10, 21)); //output too much clothes
+//console.log("NOT ENOUGH", howMuchWater(10, 10, 2)); // not enough
+//console.log(howMuchWater(10, 11, 11), "the result");
