@@ -44,16 +44,6 @@ const array = [6, 2, 3, 2, 4, 5, 4, 5];
 //   return arr1 - arr2;
 // }
 
-function findMissing(arr1, arr2) {
-  const sumArr1 = arr1.reduce((a, b) => a + b, 0);
-  const sumArr2 = arr2.reduce((a, b) => a + b, 0);
-  //arr2.reduce((a, b) => a + b);
-  //const sum2 = sum(arr2);
-  return Number(sumArr1 - sumArr2);
-}
-
-// Test cases
-//console.log(findMissing([1, 2, 2, 3], [1, 2, 3])); // Output: 2
 //console.log(findMissing([6, 1, 3, 6, 8, 2], [3, 6, 6, 1, 2])); // Output: 8
 
 //const arr1 = [6, 1, 3, 6, 8, 2];
@@ -82,11 +72,12 @@ function till(obj) {
     const keyValue = key.split("");
     const coinValue = keyValue[0] * value;
     sum = sum + coinValue;
+    console.log("sum", sum);
     //console.log(keyValue[0] * value);
   }
   sum = sum / 100;
   return `$${sum}`;
 }
-const objMitch = { "1p": 1, "2p": 1, "5p": 1 };
+const objMitch = { "1p": 3, "5p": 6, "5p": 1 };
 // i have 3 coin in total 1p and 1 2p and 1 5p;
 console.log(till(objMitch));
